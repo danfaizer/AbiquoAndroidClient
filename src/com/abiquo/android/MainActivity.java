@@ -1,12 +1,16 @@
 package com.abiquo.android;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
-/*
+/**
  * Activities should extend from BaseActivity to allow use custom
  * methods (for example, GoogleAnalytincs, session management, etc.)
  */
@@ -18,20 +22,39 @@ public class MainActivity extends BaseActivity {
 	    
 		setContentView(R.layout.mainactivity);
 	
-		/*
+		/**
 		 * Check if is 1st time application is run so we
 		 * can show Preferences screen and show a disclaimer
 		 * if is required, etc.
-		 */
-		
-		 // 0 = mode private. Only this App can read these preferences
-		 SharedPreferences appPreferences = this.getSharedPreferences("settings", 0);
+		 */		
+		 SharedPreferences appPreferences = this.getSharedPreferences("settings", Context.MODE_PRIVATE);
 		 if (appPreferences.getBoolean("prefappfirstrun", true)) {
 			 setRunned(appPreferences);
 	         Intent i = new Intent(this, PreferencesActivity.class);            
 	         startActivity(i);	         
 		 }
-
+		 
+		 /**
+		  * 
+		  */
+		 Button connect_button = (Button) findViewById(R.id.connect);
+		 connect_button.setOnClickListener(new View.OnClickListener() {
+		     @Override
+		     public void onClick(View v) {
+				 if (AbiquoUtils.correctCredentials(appContext)) {
+					 new AlertDialog.Builder(appContext)
+					    .setTitle("Good credentials!")
+					    .setMessage("Good credentials!")
+					    .show();
+				 }
+				 else {
+					 new AlertDialog.Builder(appContext)
+					    .setTitle("WRONG credentials!")
+					    .setMessage("WRONG credentials!")
+					    .show();
+				 }
+		    }
+		 });		 
 	}
 
     @Override

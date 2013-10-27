@@ -10,13 +10,13 @@ public class PreferencesActivity extends PreferenceActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
- 
         addPreferencesFromResource(R.xml.preferences);
         
         /*
          * Remove app hidden preferences
          */
         PreferenceCategory hiddenPreferencesCategory = (PreferenceCategory) findPreference("pref_hidden");
-        hiddenPreferencesCategory.removeAll();
+        hiddenPreferencesCategory.removeAll();          
+        
     }
 }

@@ -8,7 +8,7 @@
     
     <!-- Preferences -->
     <string name="pref_title">Preferences</string>
-    <string name="pref_api_settings">API Server settings</string>
+    <string name="pref_api_settings">Abiquo API server settings</string>
     <string name="pref_api_url">API url</string>
     <string name="pref_api_url_desc">IP or DNS name where API is serving requests</string>
     <string name="pref_api_port">API port</string>
@@ -19,5 +19,6 @@
     <string name="pref_user_password">Password</string>
     <string name="pref_user_password_desc">Abiquo password</string>
     <string name="pref_app_settings">App settings</string>
+    <string name="connect_button">Connect to Abiquo</string>
     
 </resources>

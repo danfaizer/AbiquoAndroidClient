@@ -11,7 +11,7 @@
                 android:summary="@string/pref_api_port_desc"
                 android:inputType="number"
                 android:defaultValue="443"
-                android:key="prefapiurlport"/>
+                android:key="prefapiport"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_user_settings" >
         <EditTextPreference
@@ -25,13 +25,16 @@
                 android:inputType="textPassword"
                 android:defaultValue="xabiquo"
                 android:key="prefuserpassword"/>
-    </PreferenceCategory>
+    </PreferenceCategory> 
     
     <!-- Hidden preferences -->
     <PreferenceCategory android:key="pref_hidden" >        
         <EditTextPreference
                 android:defaultValue="true"
                 android:key="prefappfirstrun"/>
+        <EditTextPreference
+                android:defaultValue="false"
+                android:key="prefvalidcredentials"/>        
     </PreferenceCategory>
     
     
