@@ -10,7 +10,7 @@ import android.os.Bundle;
 public class SplashActivity extends Activity {
 
 	/*
-	 *  Time while splash screen is showing
+	 *  Time while splash screen is shown
 	 */
 	private long splashDelay = 3000;
 
@@ -18,16 +18,17 @@ public class SplashActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	    
-		setContentView(R.layout.splashactivity);
+		setContentView(R.layout.splashactivity);	
 
 	    TimerTask task = new TimerTask() {
 	      @Override
 	      public void run() {
 	    	/*
 	    	 * After show splash screen for splashDelay launch MainActivity
-	    	 */
+	    	 */	    	  
 	        Intent mainIntent = new Intent().setClass(SplashActivity.this, MainActivity.class);
 	        startActivity(mainIntent);
+	        
 	        /*
 	         *  Destroy splash activity to avoid user watch it again
 	         *  by pressing back button

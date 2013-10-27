@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">A2C</string>
+    <string name="app_name">Abiquo Android Client</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="abiquologodescription">Abiquo logo horizontal</string>
+    <string name="abiquologodescription">Abiquo logo</string>
+    
+    <!-- Preferences -->
+    <string name="pref_api_settings">API Server Settings</string>
+    <string name="pref_api_url">API url</string>
+    <string name="pref_api_url_desc">IP or dns name where API is serving requests</string>
+    <string name="pref_api_port">API port</string>
+    <string name="pref_api_port_desc">Port number where the API is listening</string>
 
 </resources>
