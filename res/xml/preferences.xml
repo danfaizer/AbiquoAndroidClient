@@ -9,7 +9,30 @@
         <EditTextPreference
                 android:title="@string/pref_api_port"
                 android:summary="@string/pref_api_port_desc"
+                android:inputType="number"
+                android:defaultValue="443"
                 android:key="prefapiurlport"/>
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_user_settings" >
+        <EditTextPreference
+                android:title="@string/pref_user_username"
+                android:summary="@string/pref_user_username_desc"
+                android:defaultValue="admin"
+                android:key="prefuserusername"/>
+        <EditTextPreference
+                android:title="@string/pref_user_password"
+                android:summary="@string/pref_user_password_desc"
+                android:inputType="textPassword"
+                android:defaultValue="xabiquo"
+                android:key="prefuserpassword"/>
+    </PreferenceCategory>
+    
+    <!-- Hidden preferences -->
+    <PreferenceCategory android:key="pref_hidden" >        
+        <EditTextPreference
+                android:defaultValue="true"
+                android:key="prefappfirstrun"/>
+    </PreferenceCategory>
+    
     
 </PreferenceScreen>
