@@ -1,5 +1,6 @@
 package com.abiquo.android;
 
+import java.security.KeyStore;
 import java.util.HashMap;
 
 import android.app.AlertDialog;
@@ -29,9 +30,23 @@ public final class AbiquoUtils {
 		HashMap<String, String> apiConnection = apiConnectionDetails(context);
 		
 		if (apiConnection != null) {
-			 String uri =  "http://"+apiConnection.get("api_url")+":"+apiConnection.get("api_port")+apiConnection.get("api_path")+"/login";
+			 String uri =  "https://"+apiConnection.get("api_url")+":"+apiConnection.get("api_port")+apiConnection.get("api_path")+"/login";
 			 Log.d("AbiquoAndroidClien","INFO: HTTP Request URI: "+uri);
+			 
 			 AsyncHttpClient client = new AsyncHttpClient();
+			 
+			 /**
+			  *  Allow self-signed certificates and untrusted sites <--- WARNING
+			  */
+			 try {
+			      KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+			      trustStore.load(null, null);
+			      CustomSSLSocketFactory sf = new CustomSSLSocketFactory(trustStore);
+			      sf.setHostnameVerifier(CustomSSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+			      client.setSSLSocketFactory(sf);   
+			    }
+			 catch (Exception e) {  		    }
+		 			 
 			 client.addHeader("Accept", "application/vnd.abiquo.user+json; version=2.6;");
 			 client.setBasicAuth(apiConnection.get("api_user"),apiConnection.get("api_password"));
 			 client.get(uri,new AsyncHttpResponseHandler() {				 
@@ -49,6 +64,7 @@ public final class AbiquoUtils {
 			                                        dialog.cancel();                                                    
 			         }
 			     }).create().show();
+			    	 
 			    	 Log.d("AbiquoAndroidClien","ERROR: HTTP checkCredentials failed "+ e.toString() +" - "+ e.getCause());
 	             }			     
 			 });
