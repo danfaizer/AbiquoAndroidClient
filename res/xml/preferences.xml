@@ -12,6 +12,11 @@
                 android:inputType="number"
                 android:defaultValue="443"
                 android:key="prefapiport"/>
+        <EditTextPreference
+                android:title="@string/pref_api_path"
+                android:summary="@string/pref_api_path_desc"
+                android:defaultValue="api"
+                android:key="prefapipath"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_user_settings" >
         <EditTextPreference
@@ -26,16 +31,5 @@
                 android:defaultValue="xabiquo"
                 android:key="prefuserpassword"/>
     </PreferenceCategory> 
-    
-    <!-- Hidden preferences -->
-    <PreferenceCategory android:key="pref_hidden" >        
-        <EditTextPreference
-                android:defaultValue="true"
-                android:key="prefappfirstrun"/>
-        <EditTextPreference
-                android:defaultValue="false"
-                android:key="prefvalidcredentials"/>        
-    </PreferenceCategory>
-    
     
 </PreferenceScreen>

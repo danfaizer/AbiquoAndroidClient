@@ -1,10 +1,9 @@
 package com.abiquo.android;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,11 +26,10 @@ public class MainActivity extends BaseActivity {
 		 * can show Preferences screen and show a disclaimer
 		 * if is required, etc.
 		 */		
-		 SharedPreferences appPreferences = this.getSharedPreferences("settings", Context.MODE_PRIVATE);
-		 if (appPreferences.getBoolean("prefappfirstrun", true)) {
-			 setRunned(appPreferences);
-	         Intent i = new Intent(this, PreferencesActivity.class);            
-	         startActivity(i);	         
+		 
+		 if (AndroidUtils.firstTimeRun(appContext)) {
+			 Log.i("AbiquoAndroidClient","INFO: First time Abiquo Android Client is run");
+			 AndroidUtils.setRunned(appContext);			 
 		 }
 		 
 		 /**
@@ -41,7 +39,7 @@ public class MainActivity extends BaseActivity {
 		 connect_button.setOnClickListener(new View.OnClickListener() {
 		     @Override
 		     public void onClick(View v) {
-				 if (AbiquoUtils.correctCredentials(appContext)) {
+				 if (AbiquoUtils.checkCredentials(appContext)) {
 					 new AlertDialog.Builder(appContext)
 					    .setTitle("Good credentials!")
 					    .setMessage("Good credentials!")
@@ -75,12 +73,6 @@ public class MainActivity extends BaseActivity {
  
         return true;
     }
-
-	public void setRunned(SharedPreferences appPreferences) {
-		  SharedPreferences.Editor edit = appPreferences.edit();
-		  edit.putBoolean("prefappfirstrun", false);
-		  edit.commit();
-	}
     
 	@Override
 	protected int getLayoutResourceId() {
