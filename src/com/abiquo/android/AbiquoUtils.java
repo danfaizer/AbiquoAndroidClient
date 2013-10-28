@@ -2,7 +2,9 @@ package com.abiquo.android;
 
 import java.util.HashMap;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -12,12 +14,18 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public final class AbiquoUtils {
 	
+	
+	private static Context UtilsContext;
+	
 	 /**
      * Private constructor to prevent instantiation
      */
-    private AbiquoUtils() {}
+    public AbiquoUtils(Context context) {}
 	
 	public static Boolean checkCredentials(Context context) {
+		
+		UtilsContext = context;
+		
 		HashMap<String, String> apiConnection = apiConnectionDetails(context);
 		
 		if (apiConnection != null) {
@@ -26,14 +34,22 @@ public final class AbiquoUtils {
 			 AsyncHttpClient client = new AsyncHttpClient();
 			 client.addHeader("Accept", "application/vnd.abiquo.user+json; version=2.6;");
 			 client.setBasicAuth(apiConnection.get("api_user"),apiConnection.get("api_password"));
-			 client.get(uri,new AsyncHttpResponseHandler() {
+			 client.get(uri,new AsyncHttpResponseHandler() {				 
+				 
 			     @Override
 			     public void onSuccess(String response) {
 			         Log.d("AbiquoAndroidClien","INFO: HTTP Response: "+response);
 			     }
 			     @Override
-	             public void onFailure(Throwable e, String response) {
-			    	 Log.d("AbiquoAndroidClien","ERROR: HTTP checkCredentials failed "+ e.toString());
+	             public void onFailure(Throwable e, String response) {			    	 
+			    	 AlertDialog.Builder builder = new AlertDialog.Builder(UtilsContext);builder.setMessage("Error connecting to Abiquo API \n"+e.toString())
+			         .setTitle("Error")
+			         .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+			              public void onClick(DialogInterface dialog,int which) {
+			                                        dialog.cancel();                                                    
+			         }
+			     }).create().show();
+			    	 Log.d("AbiquoAndroidClien","ERROR: HTTP checkCredentials failed "+ e.toString() +" - "+ e.getCause());
 	             }			     
 			 });
 			return true;

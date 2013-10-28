@@ -17,9 +17,7 @@ public final class AndroidUtils {
 	 */
 	public static Boolean firstTimeRun(Context context) {
 		SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-		String firstTimeRunPref = appPreferences.getString("prefappfirstrun","true");
-		if (firstTimeRunPref == "true")	return true;
-		else return false;
+		return appPreferences.getBoolean("prefappfirstrun",true);
 	}
     
     /**

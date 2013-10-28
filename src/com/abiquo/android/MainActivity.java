@@ -1,6 +1,5 @@
 package com.abiquo.android;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,9 +26,11 @@ public class MainActivity extends BaseActivity {
 		 * if is required, etc.
 		 */		
 		 
-		 if (AndroidUtils.firstTimeRun(appContext)) {
+		 if (AndroidUtils.firstTimeRun(appContext)){
 			 Log.i("AbiquoAndroidClient","INFO: First time Abiquo Android Client is run");
-			 AndroidUtils.setRunned(appContext);			 
+			 AndroidUtils.setRunned(appContext);
+			 Intent i = new Intent(MainActivity.this, PreferencesActivity.class);
+             startActivity(i);
 		 }
 		 
 		 /**
@@ -39,7 +40,8 @@ public class MainActivity extends BaseActivity {
 		 connect_button.setOnClickListener(new View.OnClickListener() {
 		     @Override
 		     public void onClick(View v) {
-				 if (AbiquoUtils.checkCredentials(appContext)) {
+		    	 AbiquoUtils.checkCredentials(appContext);
+/*				 if (AbiquoUtils.checkCredentials(appContext)) {
 					 new AlertDialog.Builder(appContext)
 					    .setTitle("Good credentials!")
 					    .setMessage("Good credentials!")
@@ -51,7 +53,7 @@ public class MainActivity extends BaseActivity {
 					    .setMessage("WRONG credentials!")
 					    .show();
 				 }
-		    }
+*/		    }
 		 });		 
 	}
 

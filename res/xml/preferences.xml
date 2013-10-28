@@ -5,6 +5,7 @@
         <EditTextPreference
                 android:title="@string/pref_api_url"
                 android:summary="@string/pref_api_url_desc"
+                android:defaultValue="192.168.1.40"
                 android:key="prefapiurl"/>
         <EditTextPreference
                 android:title="@string/pref_api_port"
@@ -15,7 +16,7 @@
         <EditTextPreference
                 android:title="@string/pref_api_path"
                 android:summary="@string/pref_api_path_desc"
-                android:defaultValue="api"
+                android:defaultValue="/api"
                 android:key="prefapipath"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_user_settings" >
