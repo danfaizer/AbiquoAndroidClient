@@ -30,13 +30,17 @@ public final class AbiquoUtils {
 		HashMap<String, String> apiConnection = apiConnectionDetails(context);
 		
 		if (apiConnection != null) {
-			 String uri =  "https://"+apiConnection.get("api_url")+":"+apiConnection.get("api_port")+apiConnection.get("api_path")+"/login";
-			 Log.d("AbiquoAndroidClien","INFO: HTTP Request URI: "+uri);
+			
+			String api_protocol = "https";
+			if (apiConnection.get("api_ssl").equalsIgnoreCase("no")) {  api_protocol= "http"; }
+
+			String uri =  api_protocol+"://"+apiConnection.get("api_url")+":"+apiConnection.get("api_port")+apiConnection.get("api_path")+"/login";
+			Log.i("AbiquoAndroidClien","HTTP Request URI: "+uri);
 			 
-			 AsyncHttpClient client = new AsyncHttpClient();
+			AsyncHttpClient client = new AsyncHttpClient();
 			 
 			 /**
-			  *  Allow self-signed certificates and untrusted sites <--- WARNING
+			  *  Allow self-signed certificates and untrusted sites <--- THIS DECREASE SECURITY
 			  */
 			 try {
 			      KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
@@ -53,7 +57,7 @@ public final class AbiquoUtils {
 				 
 			     @Override
 			     public void onSuccess(String response) {
-			         Log.d("AbiquoAndroidClien","INFO: HTTP Response: "+response);
+			         Log.i("AbiquoAndroidClien","HTTP Response: "+response);
 			     }
 			     @Override
 	             public void onFailure(Throwable e, String response) {			    	 
@@ -63,9 +67,8 @@ public final class AbiquoUtils {
 			              public void onClick(DialogInterface dialog,int which) {
 			                                        dialog.cancel();                                                    
 			         }
-			     }).create().show();
-			    	 
-			    	 Log.d("AbiquoAndroidClien","ERROR: HTTP checkCredentials failed "+ e.toString() +" - "+ e.getCause());
+			     }).create().show();		    	 
+			    	 Log.e("AbiquoAndroidClien","HTTP checkCredentials failed - "+ e.toString() +" - "+ e.getCause());
 	             }			     
 			 });
 			return true;
@@ -85,17 +88,19 @@ public final class AbiquoUtils {
         HashMap<String,String> apiConnection = new HashMap<String,String>();
         
         String api_url = appPreferences.getString("prefapiurl", "");
-        String api_port = appPreferences.getString("prefapiport", "");
-        String api_path = appPreferences.getString("prefapipath", "");
-        String api_user = appPreferences.getString("prefuserusername", "");
-        String api_password = appPreferences.getString("prefuserpassword", "");
+        String api_port = appPreferences.getString("prefapiport", "443");
+        String api_path = appPreferences.getString("prefapipath", "/api");
+        String api_ssl = appPreferences.getString("prefapissl", "yes");
+        String api_user = appPreferences.getString("prefuserusername", "admin");
+        String api_password = appPreferences.getString("prefuserpassword", "xabiquo");
         
-        if (api_url.trim() != "" || api_port.trim() != "" && api_user.trim() != "" && api_password.trim() != "") {
+        if (api_ssl.trim() != "" && api_url.trim() != "" && api_port.trim() != "" && api_user.trim() != "" && api_password.trim() != "") {
         	apiConnection.put("api_url", api_url);
         	apiConnection.put("api_port", api_port);
         	apiConnection.put("api_path", api_path);
+        	apiConnection.put("api_ssl", api_ssl);
         	apiConnection.put("api_user", api_user);
-        	apiConnection.put("api_password", api_password);        	
+        	apiConnection.put("api_password", api_password);
         }
         else { apiConnection = null; }
         	        

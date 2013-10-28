@@ -18,6 +18,12 @@
                 android:summary="@string/pref_api_path_desc"
                 android:defaultValue="/api"
                 android:key="prefapipath"/>
+        <EditTextPreference
+                android:title="@string/pref_api_ssl"
+                android:summary="@string/pref_api_ssl_desc"
+                android:defaultValue="Yes"
+                android:key="prefapissl"/>
+        
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_user_settings" >
         <EditTextPreference
