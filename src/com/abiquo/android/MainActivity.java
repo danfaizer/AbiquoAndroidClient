@@ -1,21 +1,20 @@
 package com.abiquo.android;
 
-import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * Activities should extend from BaseActivity to allow use custom
  * methods (for example, GoogleAnalytincs, session management, etc.)
  */
-public class MainActivity extends BaseActivity  {
+public class MainActivity extends BaseActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,29 +35,74 @@ public class MainActivity extends BaseActivity  {
              startActivity(i);
 		 }
 		 
+    	 FragmentManager fragmentManager = getFragmentManager();
+    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    	 ResourcesFragment fragment = new ResourcesFragment();
+    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+    	 fragmentTransaction.commit();	
+		 
 		 /**
 		  * 
 		  */
-		 Button connect_button = (Button) findViewById(R.id.button1);
-		 connect_button.setOnClickListener(new View.OnClickListener() {
+		 ImageButton resourcesBtn = (ImageButton) findViewById(R.id.resourcesButton);
+		 resourcesBtn.setOnClickListener(new View.OnClickListener() {
 		     @Override
-		     public void onClick(View v) {
-		    	   	   
-		    	 AbiquoUtils.checkCredentials(appContext);
-				 if (AbiquoUtils.checkCredentials(appContext)) {
-					 new AlertDialog.Builder(appContext)
-					    .setTitle("Good credentials!")
-					    .setMessage("Good credentials!")
-					    .show();
-				 }
-				 else {
-					 new AlertDialog.Builder(appContext)
-					    .setTitle("WRONG credentials!")
-					    .setMessage("WRONG credentials!")
-					    .show();
-				 }
+		     public void onClick(View v) {		    	 
+		    	 FragmentManager fragmentManager = getFragmentManager();
+		    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		    	 ResourcesFragment fragment = new ResourcesFragment();
+		    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+		    	 fragmentTransaction.commit();		    	 
 		    }
-		 });	 
+		 });
+
+		 ImageButton virtualdatacenterBtn = (ImageButton) findViewById(R.id.virtualdatacenterButton);
+		 virtualdatacenterBtn.setOnClickListener(new View.OnClickListener() {
+		     @Override
+		     public void onClick(View v) {		    	 
+		    	 FragmentManager fragmentManager = getFragmentManager();
+		    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		    	 VirtualDataCenterFragment fragment = new VirtualDataCenterFragment();
+		    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+		    	 fragmentTransaction.commit();		    	 
+		    }
+		 });
+		 
+		 ImageButton eventsBtn = (ImageButton) findViewById(R.id.eventsButton);
+		 eventsBtn.setOnClickListener(new View.OnClickListener() {
+		     @Override
+		     public void onClick(View v) {		    	 
+		    	 FragmentManager fragmentManager = getFragmentManager();
+		    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		    	 EventsFragment fragment = new EventsFragment();
+		    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+		    	 fragmentTransaction.commit();		    	 
+		    }
+		 });
+		 
+		 ImageButton virtualappliancesBtn = (ImageButton) findViewById(R.id.virtualappliancesButton);
+		 virtualappliancesBtn.setOnClickListener(new View.OnClickListener() {
+		     @Override
+		     public void onClick(View v) {		    	 
+		    	 FragmentManager fragmentManager = getFragmentManager();
+		    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		    	 VirtualAppliancesFragment fragment = new VirtualAppliancesFragment();
+		    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+		    	 fragmentTransaction.commit();		    	 
+		    }
+		 });
+		 
+		 ImageButton enterprisesBtn = (ImageButton) findViewById(R.id.enterprisesButton);
+		 enterprisesBtn.setOnClickListener(new View.OnClickListener() {
+		     @Override
+		     public void onClick(View v) {		    	 
+		    	 FragmentManager fragmentManager = getFragmentManager();
+		    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		    	 EnterprisesFragment fragment = new EnterprisesFragment();
+		    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+		    	 fragmentTransaction.commit();		    	 
+		    }
+		 });
 	}
 
 
