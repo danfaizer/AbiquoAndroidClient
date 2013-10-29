@@ -11,13 +11,12 @@
             android:orientation="horizontal" >
             
 		<ImageButton
-                android:id="@+id/enterprisesButton"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="fill"
-                android:layout_weight="1"
-                android:src="@drawable/enterprisesicon"
-                android:background="@null" />
+		    android:id="@+id/enterprisesButton"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:layout_gravity="fill"
+		    android:layout_weight="1"
+		    android:src="@drawable/enterprisesicon" />
 
             <ImageButton
                 android:id="@+id/resourcesButton"
@@ -25,8 +24,7 @@
                 android:layout_height="fill_parent"
                 android:layout_gravity="fill"
                 android:layout_weight="1"
-                android:src="@drawable/resourcesicon"
-                android:background="@null" />
+                android:src="@drawable/resourcesicon" />
 
             <ImageButton
                 android:id="@+id/virtualdatacenterButton"
@@ -34,24 +32,22 @@
                 android:layout_height="fill_parent"
                 android:layout_gravity="fill"
                 android:layout_weight="1"
-                android:src="@drawable/virtualdatacentericon"
-                android:background="@null" />
+                android:src="@drawable/virtualdatacentericon" />
 
             <ImageButton
                 android:id="@+id/virtualappliancesButton"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:src="@drawable/virtualappliancesicon"
-                android:background="@null" />
+                android:src="@drawable/virtualappliancesicon" />
 
             <ImageButton
                 android:id="@+id/eventsButton"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:src="@drawable/eventsicon"
-                android:background="@null" />
+                android:src="@drawable/eventsicon" />
+
         </LinearLayout>
 
     </RelativeLayout>

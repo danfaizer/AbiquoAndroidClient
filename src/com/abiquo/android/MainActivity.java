@@ -2,6 +2,8 @@ package com.abiquo.android;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -41,6 +43,7 @@ public class MainActivity extends BaseActivity  {
 		 connect_button.setOnClickListener(new View.OnClickListener() {
 		     @Override
 		     public void onClick(View v) {
+		    	   	   
 		    	 AbiquoUtils.checkCredentials(appContext);
 				 if (AbiquoUtils.checkCredentials(appContext)) {
 					 new AlertDialog.Builder(appContext)
