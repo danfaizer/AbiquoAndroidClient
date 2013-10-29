@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333"
+    android:background="#F28B1D"
     tools:context=".SplashActivity" >
 
         <LinearLayout
@@ -21,6 +21,6 @@
         	android:layout_height="match_parent"
         	android:gravity="center"
         	android:contentDescription="@string/abiquologodescription"
-            android:src="@drawable/abiquologo1" />
+            android:src="@drawable/abiquo_watermark" />
 
 </FrameLayout>

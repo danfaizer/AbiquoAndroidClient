@@ -1,5 +1,6 @@
 package com.abiquo.android;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,7 @@ import android.widget.Button;
  * Activities should extend from BaseActivity to allow use custom
  * methods (for example, GoogleAnalytincs, session management, etc.)
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity  {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,12 +37,12 @@ public class MainActivity extends BaseActivity {
 		 /**
 		  * 
 		  */
-		 Button connect_button = (Button) findViewById(R.id.connect);
+		 Button connect_button = (Button) findViewById(R.id.button1);
 		 connect_button.setOnClickListener(new View.OnClickListener() {
 		     @Override
 		     public void onClick(View v) {
 		    	 AbiquoUtils.checkCredentials(appContext);
-/*				 if (AbiquoUtils.checkCredentials(appContext)) {
+				 if (AbiquoUtils.checkCredentials(appContext)) {
 					 new AlertDialog.Builder(appContext)
 					    .setTitle("Good credentials!")
 					    .setMessage("Good credentials!")
@@ -53,9 +54,10 @@ public class MainActivity extends BaseActivity {
 					    .setMessage("WRONG credentials!")
 					    .show();
 				 }
-*/		    }
-		 });		 
+		    }
+		 });	 
 	}
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,6 +65,7 @@ public class MainActivity extends BaseActivity {
         return true;
     }
  
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -75,10 +78,11 @@ public class MainActivity extends BaseActivity {
  
         return true;
     }
-    
+ 
 	@Override
 	protected int getLayoutResourceId() {
 		return R.layout.mainactivity;
 	}
+	
 	
 }

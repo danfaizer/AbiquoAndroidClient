@@ -3,6 +3,7 @@ package com.abiquo.android;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +18,15 @@ public class SplashActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	    
-		setContentView(R.layout.splashactivity);	
 
-	    TimerTask task = new TimerTask() {
+		// Remove notification and title bar		
+		this.getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		this.getActionBar().setDisplayShowTitleEnabled(false);
+		this.getActionBar().setDisplayShowHomeEnabled(false);
+		
+		setContentView(R.layout.splashactivity);	
+			    
+		TimerTask task = new TimerTask() {
 	      @Override
 	      public void run() {
 	    	/*

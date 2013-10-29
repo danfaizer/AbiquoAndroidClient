@@ -79,7 +79,7 @@ public final class AbiquoUtils {
 	}
 	
 	/*
-	 * apiConnectionDetails returns in a HashMap api URI, api PORT, api USER, api PASSWORD
+	 * apiConnectionDetails returns in a HashMap api URI, api PORT, api SSL enabled,api USER, api PASSWORD
 	 * extracted from shared preferences
 	 */
 	private static HashMap<String, String> apiConnectionDetails(Context context) {

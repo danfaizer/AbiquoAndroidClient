@@ -7,6 +7,8 @@
     -->
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         <!-- API 11 theme customizations can go here. -->
+        <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
+        
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.Holo">
@@ -21,4 +23,7 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="WindowTitleBackground">     
+    	<item name="android:background">#FFFFFF</item>    
+	</style>
 </resources>
