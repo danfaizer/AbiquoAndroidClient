@@ -23,6 +23,11 @@
                 android:summary="@string/pref_api_ssl_desc"
                 android:defaultValue="Yes"
                 android:key="prefapissl"/>
+        <EditTextPreference
+                android:title="@string/pref_abiquo_version"
+                android:summary="@string/pref_abiquo_version_desc"
+                android:defaultValue="2.6"
+                android:key="prefabiquoversion"/>
         
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_user_settings" >

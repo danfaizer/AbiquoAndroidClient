@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class ResourcesFragment extends Fragment implements CustomAsyncTaskListener {
-	
+public class ResourcesFragment extends Fragment implements GenericAsyncTaskListener {
+			
 	@SuppressWarnings("unused")
-	private WeakReference<CustomAsyncTask> asyncTaskWeakRef;
+	private WeakReference<GenericAsyncTask> asyncTaskWeakRef;
+	private GenericAsyncTask asyncTask;
 	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,7 +29,8 @@ public class ResourcesFragment extends Fragment implements CustomAsyncTaskListen
      super.onActivityCreated(savedInstanceState);
      setRetainInstance(true);
      // Once category is load button is disabled
-     disableResourcesButton();
+     AndroidUtils.enableProgressSpinner(this);
+     disableMenuButton();
      startNewAsyncTask();
      
      Log.v("DetailFragment", "onActivityCreated()");
@@ -37,27 +39,28 @@ public class ResourcesFragment extends Fragment implements CustomAsyncTaskListen
     @Override
     public void onDestroyView() {
      super.onDestroyView();
-     enableResourcesButton();
+     enableMenuButton();
+     asyncTask.cancel(true);
     }
     
     private void startNewAsyncTask() {
-        CustomAsyncTask asyncTask = new CustomAsyncTask(this);
-        this.asyncTaskWeakRef = new WeakReference<CustomAsyncTask >(asyncTask);
+        asyncTask = new GenericAsyncTask(this);
+        this.asyncTaskWeakRef = new WeakReference<GenericAsyncTask >(asyncTask);
         asyncTask.execute();
     }
 
-    void setText(String text){
+    private void setText(String text){
         TextView textView = (TextView) getView().findViewById(R.id.resourcesTextView);
         textView.setText(text);
     }
-
-	void disableResourcesButton(){
+	
+	private void disableMenuButton(){
         ImageButton resourcesButton = (ImageButton) getActivity().findViewById(R.id.resourcesButton);
         resourcesButton.setClickable(false);
         resourcesButton.setBackgroundColor(getResources().getColor(R.color.barbuttonactivecategory));
     }
     
-    void enableResourcesButton(){
+    private void enableMenuButton(){
         ImageButton resourcesButton = (ImageButton) getActivity().findViewById(R.id.resourcesButton);
         resourcesButton.setClickable(true);
         resourcesButton.setBackgroundColor(getResources().getColor(R.color.barbuttoncategory));
@@ -65,6 +68,7 @@ public class ResourcesFragment extends Fragment implements CustomAsyncTaskListen
 
 	@Override
 	public void onTaskComplete(String result) {
+		AndroidUtils.disableProgressSpinner(this);
 		setText(result);
 	}
 

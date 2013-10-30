@@ -5,6 +5,7 @@ import android.content.Context;
 
 public class AbiquoApplication extends Application {
 	private static Context context;
+	
     public void onCreate(){
       context=getApplicationContext();
     }

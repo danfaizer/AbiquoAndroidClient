@@ -42,5 +42,10 @@ public final class AbiquoUtils {
 		return apiConnection;		
 	}
 	
+	public static String abiquoVersion(){
+		SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(AbiquoApplication.getAbiquoAppContext());
+		return appPreferences.getString("prefabiquoversion","2.6");
+	}
+	
 	
 }

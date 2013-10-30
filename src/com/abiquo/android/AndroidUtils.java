@@ -1,9 +1,12 @@
 package com.abiquo.android;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 public final class AndroidUtils {
 
@@ -29,6 +32,16 @@ public final class AndroidUtils {
 		SharedPreferences.Editor edit = appPreferences.edit();
 		edit.putBoolean("prefappfirstrun", false);
 		edit.commit();
-		Log.i("AbiquoAndroidClient","INFO: Set preference firstRun to false");
+		Log.i("Abiquo Viewer","INFO: Set preference firstRun to false");
 	}
+	
+    public static void enableProgressSpinner(Fragment fragment){
+        ProgressBar spinner = (ProgressBar) fragment.getView().findViewById(R.id.spinner);
+        spinner.setVisibility(View.VISIBLE);      
+    }
+	
+    public static void disableProgressSpinner(Fragment fragment){
+        ProgressBar spinner = (ProgressBar) fragment.getView().findViewById(R.id.spinner);
+        spinner.setVisibility(View.GONE);      
+    }
 }
