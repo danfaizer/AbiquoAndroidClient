@@ -1,5 +1,7 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    <color name="barbuttonactivecategory">#7A7A7A</color>
+    <color name="barbuttoncategory">#D3D3D3</color>
 
 </resources>

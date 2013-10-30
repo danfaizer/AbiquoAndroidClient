@@ -13,7 +13,8 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/abiquologo"
-        android:label="">
+        android:label=""
+        android:name="AbiquoApplication">
         <activity
             android:name="com.abiquo.android.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -28,6 +29,7 @@
             	  android:theme="@style/AppTheme"></activity>
         <activity android:name="PreferencesActivity"
 				  android:theme="@style/AppTheme"></activity>
+        
     </application>
     
 </manifest>

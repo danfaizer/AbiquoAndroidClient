@@ -28,9 +28,9 @@ public class MainActivity extends BaseActivity {
 		 * if is required, etc.
 		 */		
 		 
-		 if (AndroidUtils.firstTimeRun(appContext)){
+		 if (AndroidUtils.firstTimeRun(AbiquoApplication.getAbiquoAppContext())){
 			 Log.i("AbiquoAndroidClient","INFO: First time Abiquo Android Client is run");
-			 AndroidUtils.setRunned(appContext);
+			 AndroidUtils.setRunned(AbiquoApplication.getAbiquoAppContext());
 			 Intent i = new Intent(MainActivity.this, PreferencesActivity.class);
              startActivity(i);
 		 }
@@ -39,11 +39,12 @@ public class MainActivity extends BaseActivity {
     	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     	 ResourcesFragment fragment = new ResourcesFragment();
     	 fragmentTransaction.add(R.id.fragment_container, fragment);
-    	 fragmentTransaction.commit();	
+    	 fragmentTransaction.commit();	    	 
 		 
 		 /**
 		  * 
 		  */
+    	 
 		 ImageButton resourcesBtn = (ImageButton) findViewById(R.id.resourcesButton);
 		 resourcesBtn.setOnClickListener(new View.OnClickListener() {
 		     @Override
@@ -51,7 +52,7 @@ public class MainActivity extends BaseActivity {
 		    	 FragmentManager fragmentManager = getFragmentManager();
 		    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		    	 ResourcesFragment fragment = new ResourcesFragment();
-		    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+		    	 fragmentTransaction.replace(R.id.fragment_container, fragment);
 		    	 fragmentTransaction.commit();		    	 
 		    }
 		 });
@@ -63,7 +64,7 @@ public class MainActivity extends BaseActivity {
 		    	 FragmentManager fragmentManager = getFragmentManager();
 		    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		    	 VirtualDataCenterFragment fragment = new VirtualDataCenterFragment();
-		    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+		    	 fragmentTransaction.replace(R.id.fragment_container, fragment);
 		    	 fragmentTransaction.commit();		    	 
 		    }
 		 });
@@ -75,7 +76,7 @@ public class MainActivity extends BaseActivity {
 		    	 FragmentManager fragmentManager = getFragmentManager();
 		    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		    	 EventsFragment fragment = new EventsFragment();
-		    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+		    	 fragmentTransaction.replace(R.id.fragment_container, fragment);
 		    	 fragmentTransaction.commit();		    	 
 		    }
 		 });
@@ -87,7 +88,7 @@ public class MainActivity extends BaseActivity {
 		    	 FragmentManager fragmentManager = getFragmentManager();
 		    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		    	 VirtualAppliancesFragment fragment = new VirtualAppliancesFragment();
-		    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+		    	 fragmentTransaction.replace(R.id.fragment_container, fragment);
 		    	 fragmentTransaction.commit();		    	 
 		    }
 		 });
@@ -99,7 +100,7 @@ public class MainActivity extends BaseActivity {
 		    	 FragmentManager fragmentManager = getFragmentManager();
 		    	 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		    	 EnterprisesFragment fragment = new EnterprisesFragment();
-		    	 fragmentTransaction.add(R.id.fragment_container, fragment);
+		    	 fragmentTransaction.replace(R.id.fragment_container, fragment);
 		    	 fragmentTransaction.commit();		    	 
 		    }
 		 });
