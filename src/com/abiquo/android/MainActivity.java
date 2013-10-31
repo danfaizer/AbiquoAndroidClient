@@ -19,8 +19,6 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	    
-		setContentView(R.layout.mainactivity);
 	
 		/**
 		 * Check if is 1st time application is run so we
@@ -122,6 +120,9 @@ public class MainActivity extends BaseActivity {
             Intent i = new Intent(this, PreferencesActivity.class);            
             startActivity(i);
             break;
+        default:
+        	// Propagate item selection to Fragments
+            return super.onOptionsItemSelected(item);        
         }
  
         return true;
