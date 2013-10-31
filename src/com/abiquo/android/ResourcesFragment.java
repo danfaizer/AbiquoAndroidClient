@@ -30,8 +30,8 @@ public class ResourcesFragment extends Fragment implements GenericAsyncTaskListe
      setRetainInstance(true);
      // Once category is load button is disabled
      AndroidUtils.enableProgressSpinner(this);
-     disableMenuButton();
-     startNewAsyncTask();
+     disableMenuButton();     
+     startNewAsyncTask("login","application/vnd.abiquo.user+json");
      
      Log.v("DetailFragment", "onActivityCreated()");
     }
@@ -43,10 +43,10 @@ public class ResourcesFragment extends Fragment implements GenericAsyncTaskListe
      asyncTask.cancel(true);
     }
     
-    private void startNewAsyncTask() {
+    private void startNewAsyncTask(String ... params) {
         asyncTask = new GenericAsyncTask(this);
         this.asyncTaskWeakRef = new WeakReference<GenericAsyncTask >(asyncTask);
-        asyncTask.execute();
+        asyncTask.execute(params);
     }
 
     private void setText(String text){

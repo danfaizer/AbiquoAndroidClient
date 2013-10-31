@@ -41,8 +41,11 @@ public class GenericAsyncTask extends AsyncTask<String, Void, String> {
 		if (apiConnection != null) {
 			String api_protocol = "https";
 			if (apiConnection.get("api_ssl").equalsIgnoreCase("no")) {  api_protocol= "http"; }
+			
+    	    String resourcePath = params[0];
+    	    String acceptHeader = params[1];
 
-			String uri =  api_protocol+"://"+apiConnection.get("api_url")+":"+apiConnection.get("api_port")+apiConnection.get("api_path")+"/login";
+			String uri =  api_protocol+"://"+apiConnection.get("api_url")+":"+apiConnection.get("api_port")+apiConnection.get("api_path")+"/"+resourcePath;
 			Log.i("AbiquoViewer","HTTP Request URI: "+uri);
 			
         	try {	        		
@@ -54,9 +57,8 @@ public class GenericAsyncTask extends AsyncTask<String, Void, String> {
         	    http.setCredentialsProvider(credProvider);
         	    HttpGet get = new HttpGet(uri);
 
-        	    get.addHeader("Accept", "application/vnd.abiquo.user+json; version=2.6;");
-        	    HttpResponse response = http.execute(get);
-        	    
+        	    get.addHeader("Accept", acceptHeader);
+        	    HttpResponse response = http.execute(get);        	    
         	    
         	    BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
         	    String jsonDataString = reader.readLine();	        	    	        	    

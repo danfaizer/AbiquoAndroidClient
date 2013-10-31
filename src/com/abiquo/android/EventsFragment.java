@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class EventsFragment extends Fragment implements GenericAsyncTaskListener {
 	
@@ -30,7 +31,7 @@ public class EventsFragment extends Fragment implements GenericAsyncTaskListener
      // Once category is load button is disabled
      AndroidUtils.enableProgressSpinner(this);
      disableMenuButton();
-     startNewAsyncTask();
+     startNewAsyncTask("events","application/vnd.abiquo.events+json");
      
      Log.v("DetailFragment", "onActivityCreated()");
     }
@@ -42,10 +43,15 @@ public class EventsFragment extends Fragment implements GenericAsyncTaskListener
      asyncTask.cancel(true);
     }
     
-    private void startNewAsyncTask() {
+    private void setText(String text){
+        TextView textView = (TextView) getView().findViewById(R.id.resourcesTextView);
+        textView.setText(text);
+    }
+    
+    private void startNewAsyncTask(String ... params) {
         asyncTask = new GenericAsyncTask(this);
         this.asyncTaskWeakRef = new WeakReference<GenericAsyncTask >(asyncTask);
-        asyncTask.execute();
+        asyncTask.execute(params);
     }
     
 	private void disableMenuButton(){
@@ -63,6 +69,7 @@ public class EventsFragment extends Fragment implements GenericAsyncTaskListener
 	@Override
 	public void onTaskComplete(String result) {
 		AndroidUtils.disableProgressSpinner(this);
+		setText(result);
 		Log.v("AndroidViewer", "Async tasc executed");
 	}
 
