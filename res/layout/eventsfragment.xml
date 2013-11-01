@@ -23,17 +23,17 @@
 	                android:layout_height="wrap_content"
 	                android:text="Events Activity" />
 
-	            <ScrollView
-	                android:id="@+id/ScrollView1"
-	                android:layout_width="fill_parent"
-	                android:layout_height="match_parent"
-	                android:scrollbars="vertical" >
+	            <TextView
+	                android:id="@+id/resourcesTextView"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content" />
 
-	                <TextView
-	                    android:id="@+id/resourcesTextView"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content" />
-	            </ScrollView>
+	            <ListView
+	                android:id="@+id/lstText"
+	                android:layout_width="fill_parent"
+	                android:layout_height="match_parent" 
+	                android:scrollbars="vertical">
+	            </ListView>
 
 	        </LinearLayout>
 

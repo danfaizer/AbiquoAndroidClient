@@ -2,6 +2,10 @@ package com.abiquo.android;
 
 import java.lang.ref.WeakReference;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class EventsFragment extends Fragment implements GenericAsyncTaskListener {
@@ -105,9 +110,29 @@ public class EventsFragment extends Fragment implements GenericAsyncTaskListener
 	@Override
 	public void onTaskComplete(String result) {
 		AndroidUtils.disableProgressSpinner(this);
-		setText(result);
-		asynccallrunning = false;
-		Log.v("Android Viewer", "Async tasc executed");
+		asynccallrunning = false;		
+		if (result != null) {
+			//Initialize ListView		
+			ListView lstTest= (ListView)getActivity().findViewById(R.id.lstText);
+			
+			try {
+				JSONObject jObj = new JSONObject(result);
+				JSONArray events = (JSONArray) jObj.get("collection");
+	
+		        EventsAdapter jSONAdapter = new EventsAdapter (this.getActivity(),events);//jArray is your json array 
+	
+		        //Set the above adapter as the adapter of choice for our list
+		        lstTest.setAdapter(jSONAdapter );
+	
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Log.v("Android Viewer", "Async tasc executed");
+		}
+		else {
+			// TO-DO: Show screen indicating no data can be shown
+		}
 	}
 
 }

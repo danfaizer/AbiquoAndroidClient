@@ -16,7 +16,8 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
-        <item name="android:imageButtonStyle">@style/imageButton</item>     
+        <item name="android:imageButtonStyle">@style/imageButton</item>    
+        <item name="android:icon">@drawable/abiquologo</item> 
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
