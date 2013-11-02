@@ -12,6 +12,13 @@
     <string name="action_virtualappiances">Virtual Appliances</string>
     <string name="action_events">Events</string>
     
+    <!-- Event View layour-->
+    <string name="event_action_label">Action:</string>
+    <string name="event_enterprise_label">Enterprise:</string>
+    <string name="event_performedby_label">Performed by:</string>
+    <string name="event_timestamp_label">Timestamp:</string>
+    <string name="event_severity_label">Severity:</string>
+    
     <!-- Preferences -->
     <string name="pref_title">Connection</string>
     <string name="pref_api_settings">Abiquo API server settings</string>
