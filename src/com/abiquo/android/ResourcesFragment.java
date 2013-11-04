@@ -29,17 +29,16 @@ public class ResourcesFragment extends Fragment implements GenericAsyncTaskListe
      super.onActivityCreated(savedInstanceState);
      setRetainInstance(true);
      // Once category is load button is disabled
-     AndroidUtils.enableProgressSpinner(this);
-     disableMenuButton();     
+     AndroidUtils.enableProgressSpinner(this);  
      startNewAsyncTask("login","application/vnd.abiquo.user+json");
      
      Log.v("DetailFragment", "onActivityCreated()");
     }
     
     @Override
-    public void onDestroyView() {
+//    public void onDestroyView() {
+   	public void onPause() {
      super.onDestroyView();
-     enableMenuButton();
      asyncTask.cancel(true);
     }
     
@@ -53,18 +52,7 @@ public class ResourcesFragment extends Fragment implements GenericAsyncTaskListe
         TextView textView = (TextView) getView().findViewById(R.id.resourcesTextView);
         textView.setText(text);
     }
-	
-	private void disableMenuButton(){
-        ImageButton resourcesButton = (ImageButton) getActivity().findViewById(R.id.resourcesButton);
-        resourcesButton.setClickable(false);
-        resourcesButton.setBackgroundColor(getResources().getColor(R.color.barbuttonactivecategory));
-    }
     
-    private void enableMenuButton(){
-        ImageButton resourcesButton = (ImageButton) getActivity().findViewById(R.id.resourcesButton);
-        resourcesButton.setClickable(true);
-        resourcesButton.setBackgroundColor(getResources().getColor(R.color.barbuttoncategory));
-    }
 
 	@Override
 	public void onTaskComplete(String result) {

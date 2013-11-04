@@ -1,5 +1,6 @@
 package com.abiquo.android;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -47,5 +49,18 @@ public final class AndroidUtils {
 		ProgressBar spinner = (ProgressBar) fragment.getView().findViewById(R.id.spinner);
 		spinner.setVisibility(View.GONE);      
 	}
+	
+	public static Integer getLastFragment() {
+		SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(AbiquoApplication.getAbiquoAppContext());
+		// If preflastfragment has no value in shared preferences resources button id is returned 
+		return appPreferences.getInt("preflastfragment",AbiquoApplication.getAbiquoAppContext().getResources().getInteger(R.id.resourcesButton));
+	}
 
+	public static void setLastFragment(Integer selectcategorybutton) {
+		SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(AbiquoApplication.getAbiquoAppContext());
+		SharedPreferences.Editor edit = appPreferences.edit();
+		edit.putInt("preflastfragment", selectcategorybutton);
+		edit.commit();
+		Log.i("Abiquo Viewer","Saved last fragment");
+	}
 }

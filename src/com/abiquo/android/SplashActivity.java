@@ -13,7 +13,7 @@ public class SplashActivity extends Activity {
 	/*
 	 *  Time while splash screen is shown
 	 */
-	private long splashDelay = 3000;
+	private long splashDelay = 2000;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

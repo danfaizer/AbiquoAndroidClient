@@ -2,10 +2,6 @@ package com.abiquo.android;
 
 import java.lang.ref.WeakReference;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,14 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 public class EventsFragment extends Fragment implements GenericAsyncTaskListener {
 
 	private WeakReference<GenericAsyncTask> asyncTaskWeakRef;
 	private GenericAsyncTask asyncTask;
 	private static boolean asynccallrunning = false;
-	private EventsDAO eventsdatasource;
+	private static boolean asyncrunned = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {    	
@@ -34,15 +29,13 @@ public class EventsFragment extends Fragment implements GenericAsyncTaskListener
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-		eventsdatasource = new EventsDAO(AbiquoApplication.getAbiquoAppContext());
-		eventsdatasource.open();
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.eventsrefresh:
-			Log.d("Abiquo Viewer","Refresh events view");;
+			Log.d("Abiquo Viewer","Refresh events view");
 			AndroidUtils.enableProgressSpinner(this);
 			startNewAsyncTask("events","application/vnd.abiquo.events+json");
 			return true;    
@@ -57,9 +50,18 @@ public class EventsFragment extends Fragment implements GenericAsyncTaskListener
 		setRetainInstance(true);
 		// Once category is load button is disabled
 		AndroidUtils.enableProgressSpinner(this);
-		disableMenuButton();
-		startNewAsyncTask("events","application/vnd.abiquo.events+json");     
-		Log.v("Abiquo Viewer", "Loading latest events data");
+		Long currentts = System.currentTimeMillis();
+		Long lastrefreshts = AbiquoUtils.getLastEventsRefresh();
+		if (lastrefreshts.equals(0)) {
+			startNewAsyncTask("events","application/vnd.abiquo.events+json");     
+			Log.i("Abiquo Viewer", "Loading latest events data from Abiquo API");	
+		} else if (currentts - lastrefreshts >= 15*60*1000) {
+			startNewAsyncTask("events","application/vnd.abiquo.events+json");     
+			Log.i("Abiquo Viewer", "Refreshing events data from Abiquo API");				
+		} else {
+			AbiquoUtils.inflateEventsListView(this);
+			AndroidUtils.disableProgressSpinner(this);
+		}		
 	}
 
 	@Override
@@ -71,14 +73,31 @@ public class EventsFragment extends Fragment implements GenericAsyncTaskListener
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		enableMenuButton();
-		asyncTask.cancel(true);
-		asynccallrunning = false;
-		eventsdatasource.close();
+		if (asyncrunned) 
+			asyncTask.cancel(true);
+		asynccallrunning = false;		
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		if (asyncrunned) 
+			asyncTask.cancel(true);
+		asynccallrunning = false;		
+	}
+
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		if (asyncrunned) 
+			asyncTask.cancel(true);
+		asynccallrunning = false;		
 	}
 
 	private void startNewAsyncTask(String ... params) {
-		if (!asynccallrunning) {
+		asyncrunned = true;
+		if (!asynccallrunning) {			
 			asyncTask = new GenericAsyncTask(this);
 			this.asyncTaskWeakRef = new WeakReference<GenericAsyncTask >(asyncTask);
 			asynccallrunning = true;
@@ -86,46 +105,12 @@ public class EventsFragment extends Fragment implements GenericAsyncTaskListener
 		}
 	}
 
-	private void disableMenuButton(){
-		ImageButton resourcesButton = (ImageButton) getActivity().findViewById(R.id.eventsButton);
-		resourcesButton.setClickable(false);
-		resourcesButton.setBackgroundColor(getResources().getColor(R.color.barbuttonactivecategory));
-	}
-
-	private void enableMenuButton(){
-		ImageButton resourcesButton = (ImageButton) getActivity().findViewById(R.id.eventsButton);
-		resourcesButton.setClickable(true);
-		resourcesButton.setBackgroundColor(getResources().getColor(R.color.barbuttoncategory));
-	}
-
 	@Override
 	public void onTaskComplete(String result) {
 		AndroidUtils.disableProgressSpinner(this);
 		asynccallrunning = false;		
 		if (result != null) {
-			eventsdatasource.purge();
-			try{
-				JSONObject EventsJSONObject = new JSONObject(result);
-				JSONArray EventsJSONArray = (JSONArray) EventsJSONObject.get("collection");				
-				for(int i=0;i<EventsJSONArray.length();i++){
-					JSONObject EventJSONObject = EventsJSONArray.getJSONObject(i);
-					eventsdatasource.createEvent(EventJSONObject.getLong("id"),
-							EventJSONObject.getString("actionPerformed"),
-							EventJSONObject.getString("component"),
-							EventJSONObject.getString("enterprise"),
-							EventJSONObject.getString("performedBy"),
-							EventJSONObject.getString("severity"),
-							EventJSONObject.getString("stacktrace"),
-							EventJSONObject.getString("timestamp"));
-				}
-				ListView lstTest= (ListView)getActivity().findViewById(R.id.lstText);
-				EventsAdapter eventsAdapter = new EventsAdapter (eventsdatasource.getAllEvents());
-				lstTest.setAdapter(eventsAdapter);
-
-				Log.i("Abiquo Viewer", "Events database data refreshed");
-			} catch(JSONException e){  
-				Log.e("Abiquo Viewer", "Error parsing Events JSON Data "+e.toString());  
-			}  
+			AbiquoUtils.persistAndUpdateEvents(this,result);
 		} else {
 			// TO-DO: Show screen indicating no data can be shown
 		}
